@@ -38,8 +38,12 @@ async function main() {
         return res.status(400).json({ error: "Email is required" });
       }
 
+
       // Generate a unique key for the document
       const key = uuidv4();
+
+      
+
 
       // Document to be inserted into Couchbase
       const document = {
