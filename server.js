@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const couchbase = require("couchbase");
 const cors = require("cors");
+const { v4: uuidv4 } = require("uuid");
 
 require("dotenv").config();
 
@@ -36,9 +37,13 @@ async function main() {
       if (!email) {
         return res.status(400).json({ error: "Email is required" });
       }
-      
+
+
       // Generate a unique key for the document
-      const key = couchbase.UUID.v4();
+      const key = uuidv4();
+
+      
+
 
       // Document to be inserted into Couchbase
       const document = {
@@ -47,7 +52,7 @@ async function main() {
 
       // Insert document into Couchbase
       await collection.insert(key, document);
-      
+
       return res.status(201).json({ message: "Email added successfully" });
     } catch (error) {
       console.error("Error adding email:", error);
